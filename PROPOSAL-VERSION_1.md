@@ -49,3 +49,22 @@ class Transit {
     }
 }
 ```
+In this example, we will assume that the Transit system is initialized as `transit`.
+Here's an example Transit plugin that is compatible with the example above:
+```js
+// in test.transit.js
+module.exports = {
+    id: 'MyPlugin',
+    plugin ( env ) {
+        env.actions.log = ( ...args ) => console.log( ...args );
+    }
+}
+```
+Now that we have our plugin, let's put it into test
+```js
+const plugin = require( './test.transit.js' );
+transit.addTransit( plugin );
+
+transit.shared.actions.log( "hello", "world" );
+// console output: hello world
+```
